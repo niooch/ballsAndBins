@@ -10,3 +10,6 @@ ballsAndBins
 
 #ignoruj sprawozdanie
 *.pdf
+
+#katalog z wykresami
+wykresy/

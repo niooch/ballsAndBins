@@ -82,5 +82,5 @@ void symulacja(int n){
 
     }
     //wypisz wyniki
-    std::cout << n <<";"<<Bn<<";"<<Un<<";"<<counter<<";"<<counter-Cn<<std::endl;
+    std::cout << n <<";"<<Bn<<";"<<Un<<";"<<Cn<<";"<<counter<<";"<<counter-Cn<<std::endl;
 }
