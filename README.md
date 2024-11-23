@@ -1,5 +1,7 @@
 #Ball and Bins
-![to tak nie wyglada](https://jkogut.pl/assets/balls.jpg)
+
+![to tak nie wyglada](https://jkogut.pl/assets/balls.png)
+
 ## Problem
 Mamy n urn i wrzucamy do nich kule. Po drodze liczymy pewne statystyki.
 * `Bn` – moment pierwszej kolizji; `Bn = k`, jesli k-ta z wrzucanych kul jest pierwsza, która trafiła do niepustej urny (paradoks urodzinowy, ang. birthday paradox),
