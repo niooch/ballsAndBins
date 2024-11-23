@@ -1,0 +1,12 @@
+#ignoruj binarki
+*.o
+ballsAndBins
+
+#ignoruj pliki z danymi
+*.dat
+
+#ignoruj wykresy
+*.png
+
+#ignoruj sprawozdanie
+*.pdf
