@@ -13,3 +13,12 @@ ballsAndBins
 
 #katalog z wykresami
 wykresy/
+
+#FIFO
+plot.gnuplot
+
+#kompilacja .tex
+*.aux
+*.log
+*600gf
+*.tfm

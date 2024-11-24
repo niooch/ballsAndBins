@@ -1,4 +1,4 @@
-#Ball and Bins
+# Ball and Bins
 
 ![to tak nie wyglada](https://jkogut.pl/assets/balls.png)
 
@@ -16,3 +16,9 @@ odpalamy skrypt, ktory wszystko ogarnia, razem z wykresami
 bash run.sh $(seq 1000 1000 100000)
 ```
 policzy dla `n = 1000, 2000, ..., 100000`, wykresy w katalogu `wykresy/`
+
+## Co potrzebne?
+* gcc
+* gnuplot
+* bash
+* make

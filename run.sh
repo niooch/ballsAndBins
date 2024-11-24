@@ -1,4 +1,72 @@
 #!/bin/bash
+plotujPojedynczy(){
+    local gnuplot_skrypt="plot.gnuplot"
+    local typ=$1
+    local pozycja=$2
+    cat > $gnuplot_skrypt << EOF
+    set terminal pngcairo size 800,600 enhanced font "Verdana,10"
+    set output "$typ.png"
+    set datafile separator ";"
+    set grid
+
+    set title "Wykres $typ w zależności od n"
+    set xlabel "n"
+    set ylabel "stosunek"
+
+    plot \
+        "ratios.dat" using 1:$pozycja title "$typ" with points pt 7 lc rgb "blue"
+EOF
+    gnuplot $gnuplot_skrypt
+}
+
+plotujPodwojny(){
+    local gnuplot_skrypt="plot.gnuplot"
+    local typ1=$1
+    local pozycja1=$2
+    local typ2=$3
+    local pozycja2=$4
+    cat > $gnuplot_skrypt << EOF
+    set terminal pngcairo size 800,600 enhanced font "Verdana,10"
+    set output "$typ1-$typ2.png"
+    set datafile separator ";"
+    set grid
+
+    set title "Wykres $typ1, $typ2 w zależności od n"
+    set xlabel "n"
+    set ylabel "stosunek"
+
+    plot \
+        "ratios.dat" using 1:$pozycja1 title "$typ1" with points pt 7 lc rgb "blue", \
+        "ratios.dat" using 1:$pozycja2 title "$typ2" with points pt 7 lc rgb "red"
+EOF
+    gnuplot $gnuplot_skrypt
+}
+
+plotujPotrojony(){
+    local gnuplot_skrypt="plot.gnuplot"
+    local typ1=$1
+    local pozycja1=$2
+    local typ2=$3
+    local pozycja2=$4
+    local typ3=$5
+    local pozycja3=$6
+    cat > $gnuplot_skrypt << EOF
+    set terminal pngcairo size 800,600 enhanced font "Verdana,10"
+    set output "$typ1-$typ2-$typ3.png"
+    set datafile separator ";"
+    set grid
+
+    set title "Wykres $typ1, $typ2, $typ3 w zależności od n"
+    set xlabel "n"
+    set ylabel "stosunek"
+
+    plot \
+        "ratios.dat" using 1:$pozycja1 title "$typ1" with points pt 7 lc rgb "blue", \
+        "ratios.dat" using 1:$pozycja2 title "$typ2" with points pt 7 lc rgb "red", \
+        "ratios.dat" using 1:$pozycja3 title "$typ3" with points pt 7 lc rgb "green"
+EOF
+    gnuplot $gnuplot_skrypt
+}
 plotuj(){
     local gnuplot_skrypt="plot.gnuplot"
     local typ=$1
@@ -95,6 +163,7 @@ mv *.png ./wykresy/
 
 awk -F';' '
 BEGIN {
+    OFS = ";"
 }
 {
     n = $1
@@ -127,80 +196,12 @@ BEGIN {
 }
 ' srednie.dat > ratios.dat
 
-plotujPojedynczy(){
-    local gnuplot_skrypt="plot.gnuplot"
-    local typ=$1
-    local pozycja=$2
-    cat > $gnuplot_skrypt << EOF
-    set terminal pngcairo size 800,600 enhanced font "Verdana,10"
-    set output "$typ.png"
-    set datafile separator ";"
-    set grid
 
-    set title "Wykres $typ w zależności od n"
-    set xlabel "n"
-    set ylabel "stosunek"
-
-    plot \
-        "ratios.dat" using 1:$pozycja title "$typ" with points pt 7 lc rgb "blue"
-EOF
-    gnuplot $gnuplot_skrypt
-}
-
-plotujPodwojny(){
-    local gnuplot_skrypt="plot.gnuplot"
-    local typ1=$1
-    local pozycja1=$2
-    local typ2=$3
-    local pozycja2=$4
-    cat > $gnuplot_skrypt << EOF
-    set terminal pngcairo size 800,600 enhanced font "Verdana,10"
-    set output "$typ1-$typ2.png"
-    set datafile separator ";"
-    set grid
-
-    set title "Wykres $typ1, $typ2 w zależności od n"
-    set xlabel "n"
-    set ylabel "stosunek"
-
-    plot \
-        "ratios.dat" using 1:$pozycja1 title "$typ1" with points pt 7 lc rgb "blue", \
-        "ratios.dat" using 1:$pozycja2 title "$typ2" with points pt 7 lc rgb "red"
-EOF
-    gnuplot $gnuplot_skrypt
-}
-
-plotujPotrojony(){
-    local gnuplot_skrypt="plot.gnuplot"
-    local typ1=$1
-    local pozycja1=$2
-    local typ2=$3
-    local pozycja2=$4
-    local typ3=$5
-    local pozycja3=$6
-    cat > $gnuplot_skrypt << EOF
-    set terminal pngcairo size 800,600 enhanced font "Verdana,10"
-    set output "$typ1-$typ2-$typ3.png"
-    set datafile separator ";"
-    set grid
-
-    set title "Wykres $typ1, $typ2, $typ3 w zależności od n"
-    set xlabel "n"
-    set ylabel "stosunek"
-
-    plot \
-        "ratios.dat" using 1:$pozycja1 title "$typ1" with points pt 7 lc rgb "blue", \
-        "ratios.dat" using 1:$pozycja2 title "$typ2" with points pt 7 lc rgb "red", \
-        "ratios.dat" using 1:$pozycja3 title "$typ3" with points pt 7 lc rgb "green"
-EOF
-    gnuplot $gnuplot_skrypt
-}
-
-plotujPodwojny "B(n)/n" 2 "B(n)/sqrt(n)" 3
-plotujPojedynczy "U(n)/n" 4
-plotujPotrojony "C(n)/n" 5 "C(n)/nln(n)" 6 "C(n)/n^2" 7
-plotujPotrojony "D(n)/n" 8 "D(n)/nln(n)" 9 "D(n)/n^2" 10
-plotujPotrojony "D(n)-C(n)/n" 11 "D(n)-C(n)/nln(n)" 12 "D(n)-C(n)/nln(ln(n))" 13
+plotujPodwojny "B(n)NAn" 2 "B(n)NAsqrt(n)" 3
+plotujPojedynczy "U(n)NAn" 4
+plotujPotrojony "C(n)NAn" 5 "C(n)NAnln(n)" 6 "C(n)NAn^2" 7
+plotujPotrojony "D(n)NAn" 8 "D(n)NAnln(n)" 9 "D(n)NAn^2" 10
+plotujPotrojony "D(n)-C(n)NAn" 11 "D(n)-C(n)NAnln(n)" 12 "D(n)-C(n)NAnln(ln(n))" 13
 
 #przenies wykresy do odpowiedniego katalogu
 mv *.png ./wykresy/

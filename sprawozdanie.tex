@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+
+\title{Symulowanie Procesów Losowych - Kule i Urny}
+\author{Jakub Kogut}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp}
+Sprawozdanie do zadania domowego 2.
+\section{Opis Zadania}
+Należało zaprojektować oraz zaimplementować probalistyczny model kul i urn. Kolejne m kul wrzucanych jest niezależnie oraz jednostajnie do n ponumernowanych urn. Celem zadania było eksperymentalne wyznaczenie następujących wartości:
+\begin{enumerate}
+    \item $B_n$ - moment pierwszej kolizji
+    \item $U_n$ - liczba urn, które pozostają puste po wrzuceniu $n$ kul
+    \item $C_n$ - minimalna liczba rzutów, po której w każdej z urn znajduje się co najmniej jedna kula
+    \item $D_n$ - minimalna liczba rzutów, po której w każdej z urn znajduje się co najmniej dwie kule (równocześnie jest to warunek końcowy symulacji)
+    \item $D_n - C_n$ - ilość rzutów potrzebna do uzyskania drugiej kuli w każdej z urn, po tym jak w każdej jest już minimum jedna kula
+\end{enumerate}
+\section{Metodologia}
+Podana była ustalona wartość $k=50$ niezależnych symulacji dla każdego $n$ z zakresu $n \in \{1000, 2000, ..., 100000\}$. W trakcie wykonywania jej, na bierząco zapisywane były szukane wartości. Następnie wypisywano wyniki do pliku, liczono średnie oraz generowano wykresy.\newline
+Przy generowaniu liczb losowych użyłem generatora \textit{Mersenne Twister}
+\section{Wnioski}
+Na podstawie przeprowadzonych symulacji i wygenerowanych wykresów można wyciągnąć następujące wnioski dotyczące badanych zmiennych:
+
+\subsection*{1. Moment pierwszej kolizji ($B_n$)}
+Wartości momentu pierwszej kolizji rosną w miarę zwiększania liczby urn, co jest zgodne z intuicją wynikającą z paradoksu urodzinowego. Wykres średnich wartości $B_n$ względem $n$ sugeruje, że średnia asymptotycznie zmierza do funkcji proporcjonalnej do $\sqrt{n}$, co potwierdza teoretyczne przewidywania.
+
+\subsection*{2. Liczba pustych urn ($U_n$)}
+Liczba pustych urn po wrzuceniu $n$ kul zmniejsza się wraz ze wzrostem $n$, co odzwierciedla oczekiwaną koncentrację kul w większej liczbie urn. Wykresy ilorazu $U_n/n$ wskazują, że liczba pustych urn proporcjonalna jest do wartości $e^{-n/n}$, zgodnie z teorią.
+
+\subsection*{3. Minimalna liczba rzutów do zapełnienia urn ($C_n$)}
+Problem kolekcjonera kuponów sugeruje, że minimalna liczba rzutów, po której każda urna zawiera przynajmniej jedną kulę, jest asymptotycznie proporcjonalna do $n \ln n$. Na wykresach widoczna jest zgodność wyników eksperymentalnych z przewidywaniami teoretycznymi.
+
+\subsection*{4. Minimalna liczba rzutów do dwóch kul w każdej urnie ($D_n$)}
+Aby każda urna zawierała przynajmniej dwie kule, liczba rzutów rośnie znacząco szybciej. Analiza wskazuje, że asymptotyka $D_n$ jest zbliżona do $n \ln n$ z dodatkowymi wyrazami zależnymi od stałych wyższych rzędów.
+
+\subsection*{5. Różnica między $D_n$ a $C_n$}
+Wartości $D_n - C_n$ reprezentują dodatkowy wysiłek wymagany, aby każda urna zawierała co najmniej dwie kule po osiągnięciu pełnego zapełnienia. Wyniki symulacji pokazują, że różnica ta jest asymptotycznie proporcjonalna do $n$.
+
+\subsection*{6. Koncentracja wyników}
+Wartości badanych zmiennych w poszczególnych próbach koncentrują się wokół wartości średnich, co wskazuje na małą wariancję generatora liczb losowych Mersenne Twister. Wartości średnie dobrze przybliżają teoretyczne wyniki.
+
+\subsection*{7. Intuicje związane z nazwami problemów}
+\textbf{Paradox urodzinowy ($B_n$):} Intuicja opiera się na zaskakująco małej liczbie kul potrzebnych do pierwszej kolizji, co jest analogiczne do problemu dwóch osób dzielących tę samą datę urodzin.
+\textbf{Problem kolekcjonera kuponów ($C_n$):} Minimalna liczba rzutów do zapełnienia urn przypomina problem zebrania pełnego zestawu kuponów w przypadku losowego wybierania.
+
+\subsection*{8. Znaczenie w kontekście funkcji haszujących}
+Paradox urodzinowy ma istotne zastosowanie w kryptografii, szczególnie w kontekście funkcji haszujących. Mała liczba rzutów prowadząca do kolizji podkreśla konieczność stosowania funkcji haszujących o dużej przestrzeni wyjściowej w celu minimalizacji ryzyka kolizji.
+
+\section{Podsumowanie}
+Przeprowadzone symulacje potwierdzają teoretyczne właściwości modelu kul i urn, w tym asymptotykę badanych zmiennych oraz intuicje związane z ich nazewnictwem. Dodatkowo, zastosowanie generatora Mersenne Twister zapewniło stabilność i wiarygodność wyników.
+
+\section{Wykresy}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/B(n).png}
+    \caption{Wykres wartości $B_n$}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/U(n).png}
+    \caption{Wykres wartości $U_n$}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/C(n).png}
+    \caption{Wykres wartości $C_n$}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/D(n).png}
+    \caption{Wykres wartości $D_n$}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/D(n) - C(n).png}
+    \caption{Wykres wartości $D_n - C_n$}
+\end{figure}
+
+
+
+\end{document}
