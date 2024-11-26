@@ -8,14 +8,11 @@ ballsAndBins
 #ignoruj wykresy
 *.png
 
-#ignoruj sprawozdanie
-*.pdf
-
 #katalog z wykresami
 wykresy/
 
 #FIFO
-plot.gnuplot
+./plot.gnuplot
 
 #kompilacja .tex
 *.aux

@@ -3,6 +3,14 @@
 \usepackage{amsmath}
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
 
 \title{Symulowanie Procesów Losowych - Kule i Urny}
 \author{Jakub Kogut}
@@ -30,58 +38,96 @@ Przy generowaniu liczb losowych użyłem generatora \textit{Mersenne Twister}
 Na podstawie przeprowadzonych symulacji i wygenerowanych wykresów można wyciągnąć następujące wnioski dotyczące badanych zmiennych:
 
 \subsection*{1. Moment pierwszej kolizji ($B_n$)}
-Wartości momentu pierwszej kolizji rosną w miarę zwiększania liczby urn, co jest zgodne z intuicją wynikającą z paradoksu urodzinowego. Wykres średnich wartości $B_n$ względem $n$ sugeruje, że średnia asymptotycznie zmierza do funkcji proporcjonalnej do $\sqrt{n}$, co potwierdza teoretyczne przewidywania.
+Wartości momentu pierwszej kolizji rosną w miarę zwiększania liczby urn, co jest zgodne z intuicją wynikającą z paradoksu urodzinowego. \hyperref[fig:WykresBn]{Wykres średnich} wartości $B_n$ względem $n$ wskazuje na niską koncentrację wyników wokół wartości średnich, zmniejszającą się wraz ze wzrostem $n$. \newline
+\hyperref[fig:WykresBnratio]{Wykres ciągu $B_n$ podzielonego przez podane funkcje $n$ oraz $\sqrt{n}$} sugeruje, że asymptotyka $B_n$ jest zbliżona do $O(n)$.
 
 \subsection*{2. Liczba pustych urn ($U_n$)}
-Liczba pustych urn po wrzuceniu $n$ kul zmniejsza się wraz ze wzrostem $n$, co odzwierciedla oczekiwaną koncentrację kul w większej liczbie urn. Wykresy ilorazu $U_n/n$ wskazują, że liczba pustych urn proporcjonalna jest do wartości $e^{-n/n}$, zgodnie z teorią.
+Liczba pustych urn po wrzuceniu $n$ kul zwiększa się wraz ze wzrostem $n$, dobrze odzwierciedlając wykres $y=n$. \hyperref[fig:WykresUn]{Wykres $U_n$} przedstawia wartości poszczególnych symulacji mocno skoncentrowane wokół średniej. \hyperref[fig:WykresUnratio]{Wykresy ilorazu $U_n/n$} wskazują, że wartości te są asymptotycznie zbliżone do stałej wartości $O(n)$.
 
 \subsection*{3. Minimalna liczba rzutów do zapełnienia urn ($C_n$)}
-Problem kolekcjonera kuponów sugeruje, że minimalna liczba rzutów, po której każda urna zawiera przynajmniej jedną kulę, jest asymptotycznie proporcjonalna do $n \ln n$. Na wykresach widoczna jest zgodność wyników eksperymentalnych z przewidywaniami teoretycznymi.
+Na \hyperref[fig:WykresCn]{wykresie $C_n$} widoczna jest dobra koncentraca wyników poszczególnych symulacji do wartości średniej, choć zmniejszającą się wraz z $n$. \hyperref[fig:WykresCnratio]{Wykresy ilorazów $\frac{C_n}{n}$, $\frac{C_n}{\ln n}$} wskazują, że wartości te są asymptotycznie zbliżone do stałej wartości $O(n)$.
 
 \subsection*{4. Minimalna liczba rzutów do dwóch kul w każdej urnie ($D_n$)}
-Aby każda urna zawierała przynajmniej dwie kule, liczba rzutów rośnie znacząco szybciej. Analiza wskazuje, że asymptotyka $D_n$ jest zbliżona do $n \ln n$ z dodatkowymi wyrazami zależnymi od stałych wyższych rzędów.
+Aby każda urna zawierała przynajmniej dwie kule, potrzebna jest większa liczba rzutów niż w przypadku $C_n$. Wyniki symulacji pokazują, że wartości $D_n$ rosną szybciej niż $C_n$. \hyperref[fig:WykresDn]{Wykres $D_n$} pokazuje, że wartości $D_n$ są podobnie skoncentrowane wokół wartości średnich jak $C_n$. \hyperref[fig:WykresDnratio]{Z Wykresów ilorazów $\frac{D_n}{n}$, $\frac{D_n}{n \ln n}$, $\frac{D_n}{n \ln \ln n}$} można jednoznaczni stwierdzić, że wartości $D_n$ są asymptotycznie zbliżone do $O(n \ln n)$.
 
 \subsection*{5. Różnica między $D_n$ a $C_n$}
-Wartości $D_n - C_n$ reprezentują dodatkowy wysiłek wymagany, aby każda urna zawierała co najmniej dwie kule po osiągnięciu pełnego zapełnienia. Wyniki symulacji pokazują, że różnica ta jest asymptotycznie proporcjonalna do $n$.
+Wartości $D_n - C_n$ reprezentują dodatkowy wysiłek wymagany, aby każda urna zawierała co najmniej dwie kule po osiągnięciu pełnego zapełnienia przynajmniej jedną kulą. \hyperref[fig:WykresDnCn]{Wykres $D_n - C_n$} pokazuje, że wartości te rosną w miarę zwiększania $n$. \hyperref[fig:WykresDn-Cn]{Wykresy ilorazów $\frac{D_n - C_n}{n}$, $\frac{D_n - C_n}{n \ln n}$, $\frac{D_n - C_n}{n \ln \ln n}$}  nie jedoznacznie sugerują, że wartości te są asymptotycznie zbliżone do $O(n \ln n)$ lub $O(n \ln \ln n)$.
 
-\subsection*{6. Koncentracja wyników}
-Wartości badanych zmiennych w poszczególnych próbach koncentrują się wokół wartości średnich, co wskazuje na małą wariancję generatora liczb losowych Mersenne Twister. Wartości średnie dobrze przybliżają teoretyczne wyniki.
 
-\subsection*{7. Intuicje związane z nazwami problemów}
-\textbf{Paradox urodzinowy ($B_n$):} Intuicja opiera się na zaskakująco małej liczbie kul potrzebnych do pierwszej kolizji, co jest analogiczne do problemu dwóch osób dzielących tę samą datę urodzin.
-\textbf{Problem kolekcjonera kuponów ($C_n$):} Minimalna liczba rzutów do zapełnienia urn przypomina problem zebrania pełnego zestawu kuponów w przypadku losowego wybierania.
+\subsection*{6. Intuicje związane z nazwami problemów}
+\begin{enumerate}
+    \item \textbf{Paradox urodzinowy ($B_n$):} Intuicja opiera się na zaskakująco małej liczbie kul potrzebnych do pierwszej kolizji, co jest analogiczne do problemu dwóch osób dzielących tę samą datę urodzin.
+    \item \textbf{Problem kolekcjonera kuponów ($C_n$):} Minimalna liczba rzutów do zapełnienia urn przypomina problem zebrania pełnego zestawu kuponów w przypadku losowego wybierania.
+\end{enumerate}
 
-\subsection*{8. Znaczenie w kontekście funkcji haszujących}
+\subsection*{7. Znaczenie w kontekście funkcji haszujących}
 Paradox urodzinowy ma istotne zastosowanie w kryptografii, szczególnie w kontekście funkcji haszujących. Mała liczba rzutów prowadząca do kolizji podkreśla konieczność stosowania funkcji haszujących o dużej przestrzeni wyjściowej w celu minimalizacji ryzyka kolizji.
 
 \section{Podsumowanie}
 Przeprowadzone symulacje potwierdzają teoretyczne właściwości modelu kul i urn, w tym asymptotykę badanych zmiennych oraz intuicje związane z ich nazewnictwem. Dodatkowo, zastosowanie generatora Mersenne Twister zapewniło stabilność i wiarygodność wyników.
 
+\pagebreak
+
 \section{Wykresy}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{wykresy/B(n).png}
-    \caption{Wykres wartości $B_n$}
+    \caption{Wykres Wykreswartości $B_n$}
+    \label{fig:WykresBn}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{wykresy/U(n).png}
     \caption{Wykres wartości $U_n$}
+    \label{fig:WykresUn}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{wykresy/C(n).png}
     \caption{Wykres wartości $C_n$}
+    \label{fig:wykresCn}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{wykresy/D(n).png}
     \caption{Wykres wartości $D_n$}
+    \label{fig:WykresDn}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{wykresy/D(n) - C(n).png}
+    \includegraphics[width=0.8\textwidth]{wykresy/Dn-Cn.png}
     \caption{Wykres wartości $D_n - C_n$}
+    \label{fig:WykresDnCn}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/Bnratio.png}
+    \caption{Wykres wartości $B_n$ podzielone przez $n$ oraz $sqrt(n)$}
+    \label{fig:WykresBnratio}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/Unratio.png}
+    \caption{Wykres wartości $U_n$ podzielone przez $n$}
+    \label{fig:WykresUnratio}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/Cnratio.png}
+    \caption{Wykres wartości $C_n$ podzielone przez $n$, $n \ln n$ oraz $n^2$}
+    \label{fig:WykresCnratio}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/Dnratio.png}
+    \caption{Wykres wartości $D_n$ podzielone przez $n$, $n \ln n$, $n \ln \ln n$}
+    \label{fig:WykresDnratio}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{wykresy/DnCnratio.png}
+    \caption{Wykres wartości $D_n - C_n$ podzielone przez $n$, $n \ln n$, $n \ln \ln n$}
+    \label{fig:WykresDn-Cn}
 \end{figure}
 
 
